@@ -1,0 +1,114 @@
+public class Laba4 {
+
+    static class  Persons{
+        String[] lastName;
+        String[] firstName;
+        String[] middleName;
+
+        int[] age;
+
+        public Persons(String[] lastName, String[] firstName, String[] middleName, int[] age){
+            this.lastName = lastName;
+            this.firstName = firstName;
+            this.middleName = middleName;
+            this.age = age;
+        }
+
+        void getFullName(){
+            for(int i = 0; i < lastName.length; i++) {
+                if (lastName != null && firstName != null && middleName != null) {
+                    System.out.println("Name: " + lastName[i] + "; FirstName: " + firstName[i] + "; MiddleName: " + middleName[i]);
+                } else {
+                    System.out.println("Error not one field");
+                }
+            }
+        }
+
+        void isAdult(){
+            for(int i = 0; i < lastName.length; i++) {
+                if (age[i] > 18) {
+                    System.out.println("Adult");
+                } else {
+                    System.out.println("Not Adult");
+                }
+            }
+        }
+
+    }
+
+    static class Student extends Persons {
+
+        String[] group;
+        float[] grade;
+
+        String[] lastNam;
+        String[] firstNam;
+        String[] middleNam;
+        int ages;
+
+        public Student(String[] lastName, String[] firstName, String[] middleName, int[] age,
+                       String[] group, float[] grade) {
+            super(lastName, firstName, middleName, age);
+            this.group = group;
+            this.grade = grade;
+
+        }
+
+        void getMarksAverage(){
+            float result = 0;
+            String student = null;
+            String tim = null;
+            float min = grade[0];
+            for(int i = 0; i < group.length; i++){
+                if(grade[i] >= min){
+                    result = grade[i];
+                    tim = group[i];
+                    student = lastName[i];
+                }
+            }
+            System.out.println("Student: " + student + "\nTim: " + tim + "\nGrade: " + result);
+
+
+        }
+
+        void isExcellentStudent(){
+            for(int i = 0; i < group.length; i++) {
+                if (grade[i] > 3) {
+                    System.out.println("Student excellent: " + grade[i]);
+                }
+                else {
+                    System.out.println("Not excellent");
+                }
+            }
+        }
+
+    }
+
+
+    public static void main(String[] args) {
+
+        Student Anton = new Student(new String[]{"Suprun"}, new String[]{"Anton"}, new String[]{"Igorevich"}, new int[]{20}, new String[]{"IKM-219а"}, new float[]{4.5f});
+        Anton.getFullName();
+        Anton.isAdult();
+        Anton.getMarksAverage();
+        Anton.isExcellentStudent();
+
+        System.out.println("\n\n");
+
+        Student Diana = new Student(new String[]{"Dzuba"}, new String[]{"Diana"}, new String[]{"Igorevna"}, new int[]{20}, new String[]{"819e"}, new float[]{5.0f});
+        Diana.getFullName();
+        Diana.isAdult();
+        Diana.getMarksAverage();
+        Diana.isExcellentStudent();
+
+        System.out.println("\n\n");
+
+        Student Igor = new Student(new String[]{"Suprun"}, new String[]{"Igor"}, new String[]{"Antonovich"}, new int[]{25}, new String[]{"D-258d"}, new float[]{3.0f});
+        Igor.getFullName();
+        Igor.isAdult();
+        Igor.getMarksAverage();
+        Igor.isExcellentStudent();
+
+
+    }
+}
