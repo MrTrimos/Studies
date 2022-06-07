@@ -1,0 +1,238 @@
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class email {
+
+    static String name;
+
+    static String firstname;
+    static String lastname;
+    static class Persons{
+
+        String firstname;
+        String lastname;
+        String eMail;
+        String department;
+        String password;
+        String alterEMail;
+
+        int mailCapacity = 500;
+
+
+        public Persons(String firstname, String lastname) {
+            this.firstname = firstname;
+            this.lastname = lastname;
+        }
+
+
+
+        void RandomEmail(){
+            eMail = firstname.toLowerCase() + "." + lastname.toLowerCase() + "@department.company.com";
+            System.out.println("\nE-mail: " + eMail);
+        }
+
+
+
+
+        void Department(){
+
+            System.out.print("\n****************************");
+            int departmentSearch = 0;
+            System.out.print("\nDEPARTMENT CODES" +
+                    "\n1 for Sales" +
+                    "\n2 for Development" +
+                    "\n3 for Accounting" +
+                    "\n0 for None");
+            Scanner in = new Scanner(System.in);
+            System.out.print("\nEnter Department Code: ");
+            departmentSearch = Integer.parseInt(in.nextLine());
+
+            switch (departmentSearch) {
+                case (0):
+                    department = "Not department";
+                    System.out.print("\nNot department");
+                    break;
+                case (1):
+                    department = "Sales";
+                    System.out.print("\nDepartment Sales");
+                    break;
+                case (2):
+                    department = "Department";
+                    System.out.print("\nDepartment Development");
+                    break;
+                case (3):
+                    department = "Accounting";
+                    System.out.print("\nDepartment Accounting");
+                    break;
+                default:
+                    System.out.print("\nNothing selected: ");
+                    break;
+            }
+        }
+
+
+        void passwords(){
+            String element = "1234567890abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            String[] elements = element.split("");
+
+
+            int randomNumber;
+            String[] NElements = new String[8];
+
+            boolean flag = true;
+
+            while(flag){
+                for(int i = 0; i < 8; i++) {
+                    randomNumber = (int)(Math.random() * elements.length);
+                    NElements[i] = elements[randomNumber];
+                }
+
+                password = String.join("", NElements);
+
+                Pattern p = Pattern.compile("([0-9])");
+                Pattern p1 = Pattern.compile("([a-z])");
+                Pattern p2 = Pattern.compile("([A-Z])");
+
+                Matcher m = p.matcher(password);
+                Matcher m1 = p1.matcher(password);
+                Matcher m2 = p2.matcher(password);
+
+                boolean b = true, b1 = true, b2 = true;
+                if (b == m.find() && b1 == m1.find() && b2 == m2.find()){
+                    flag = false;
+                    System.out.print( "\nPassword: " + password);
+                }
+
+              }
+
+        }
+
+        void AlternateEMail(){
+
+            boolean flag = true;
+
+            while(flag) {
+                Scanner in = new Scanner(System.in);
+                System.out.print("\nEnter Alternate E-Mail: ");
+                alterEMail = in.nextLine();
+
+                Pattern p = Pattern.compile("(^(.+)@(.+)$)");
+
+                Matcher m = p.matcher(alterEMail);
+
+                if (m.find()) {
+                    flag = false;
+                    System.out.print("\nAlter EMail: " + alterEMail);
+                }
+            }
+        }
+
+        void mailBoxCapacity(){
+
+            boolean flag = true;
+
+            while(flag) {
+                Scanner in = new Scanner(System.in);
+                System.out.print("\nEnter Mail Box Capacity: ");
+                mailCapacity = Integer.parseInt(in.nextLine());
+
+                if (mailCapacity <= 0 && mailCapacity < 100000) {
+                    System.out.print("\nSuch a capacious mailbox is not available");
+                } else {
+                    flag = false;
+                }
+            }
+        }
+
+        void menu(){
+
+            int menutSearch = 0;
+            boolean iter = true;
+
+            while (iter) {
+                System.out.print("\n\n****************************");
+                System.out.print("\nENTER YOUR CHOICE" +
+                        "\n1.Show Info" +
+                        "\n2.Change Password" +
+                        "\n3.Change Mailbox Capacity" +
+                        "\n4.Set Alternate Email" +
+                        "\n5.Exit");
+                Scanner in = new Scanner(System.in);
+                System.out.print("\nYour choice: ");
+                menutSearch = Integer.parseInt(in.nextLine());
+
+                switch (menutSearch) {
+                    case (1):
+                        infoPerson();
+                        break;
+                    case (2):
+                        passwords();
+                        break;
+                    case (3):
+                        mailBoxCapacity();
+                        break;
+                    case (4):
+                        AlternateEMail();
+                        break;
+                    default:
+                        iter = false;
+                        break;
+                }
+            }
+
+        }
+
+        void infoPerson(){
+            System.out.print("\nNAME: \t" + firstname + " " + lastname);
+            System.out.print("\nDEPARTMENT: \t" + department);
+            System.out.print("\nEMAIL: \t" + eMail);
+            System.out.print("\nPASSWORD: \t" + password);
+            System.out.print("\nMAILBOX CAPACITY: \t" + mailCapacity);
+            System.out.print("\nALTER EMAIL: \t" + alterEMail);
+        }
+
+    }
+
+    static void registrationName(){
+
+        Pattern pattern = Pattern.compile("([A-Za-z]+)\\s+([A-Za-z]+)");
+
+        boolean flag = true;
+        while (flag){
+            System.out.print("\nNEW EMPLOYEE: ");
+            Scanner in = new Scanner(System.in);
+            name = in.nextLine();
+            String stringToBeMatched = name;
+
+            Matcher matcher = pattern.matcher(stringToBeMatched);
+
+            if (matcher.find()){
+                System.out.println("\nName Save");
+                flag = false;
+            } else {
+                System.out.print("\nInvalid record format" +
+                        "\nExample: Fistname LastName");
+            }
+        }
+
+    }
+
+
+    static void NameSlice(){
+        String[] arr = name.split(" ");
+        firstname = arr[0];
+        lastname = arr[1];
+    }
+
+    public static void main(String[] args) {
+        registrationName();
+        NameSlice();
+
+        Persons Person1 = new Persons(firstname , lastname);
+        Person1.RandomEmail();
+        Person1.Department();
+        Person1.passwords();
+        Person1.menu();
+    }
+}
